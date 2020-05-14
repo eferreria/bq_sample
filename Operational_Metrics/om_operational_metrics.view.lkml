@@ -429,6 +429,14 @@ dimension: no_padding_margin {
   sql: 'padding:1px 0px 1px 0px; margin:0;' ;;
 }
 
+measure: new_count {
+  type: count
+  link: {
+    label: "Review Related Orders"
+    url: "www.google.com"
+  }
+}
+
 # ===================================     MEASURES - STATUS MESSAGES    ================================
 measure: yearly_status {
   hidden: yes
@@ -447,7 +455,7 @@ measure: old_site_status {
 #   hidden: yes
   type: count
   html:
-    <div class="container" style="width:400px; font-size:16px; border-bottom: .1em solid {{color1._value}}; padding: 12px 12px 12px 12px; margin:0; align:center">
+    <div class="container" style="width:400px; font-size:16px; border-bottom: .1em solid {{color1._value}}; padding: 12px 12px 12px 12px; margin:auto; display: inline-block">
     <table style="border:0px; width:100%" class="table-condensed">
       <tr style="height:10px">
          <td colspan=2 style="text-align:left; height:10px; {{no_padding_margin._value}}">
@@ -610,7 +618,7 @@ measure: hr_bar {
 measure: steward_progress {
   type: count
   html:
-    <div class="container" style="width:600px; font-size:14px; padding: 12px 12px 12px 12px; margin:0">
+    <div class="container" style="width:400px; font-size:14px; padding: 12px 12px 12px 12px; margin:0">
       <table style="border:0px; width:100%; {{no_padding_margin._value}}" class="table-condensed">
         <tr style="height:10px">
           <td colspan=2 style="text-align:left; height:10px; {{no_padding_margin._value}}">
@@ -635,7 +643,7 @@ measure: steward_progress {
         </tr>
         <tr>
           <td colspan=2 >
-            <div class="progress" style="height:75px; background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(239,255,0,1) 25%, rgba(41,255,0,1) 50%, rgba(21,234,122,1) 75%, rgba(0,110,37,1) 100%);padding:0px 0px 0px 0px; margin:0">
+            <div class="progress" style=" height:75px; background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(239,255,0,1) 25%, rgba(41,255,0,1) 50%, rgba(21,234,122,1) 75%, rgba(0,110,37,1) 100%);padding:0px 0px 0px 0px; margin:0">
               <div class="progress-bar" role="progressbar" style="width:45%; background-color:transparent; border-right: 1px solid black;"></div>
               <div class="progress-bar" role="progressbar" style="width:5%; background-color:transparent; border-right: 2px solid black;">
                 <p style="color:black">4.8%</p>
@@ -727,19 +735,15 @@ measure: gauge_version_2 {
   html:
   <div class="container" style="width:100%">
   <img src="https://quickchart.io/chart?height=150&width=150&c={
-    type:'radialGauge',
-    data:{datasets:[{data:[{{value}}],backgroundColor:'green'}]},
-    options:{animation: {
-  animateRotate: true,
-  animateScale: true
-},
-  roundedCorners: false,
-  domain: [0, 30],
-  centerPercentage:60,
-  displayText:true,
-  text:'Servicessss'
-}
-    }"></div>  ;;
+    type:'line',
+    data:{
+        labels:[{{event_month.value}}],
+        datasets:[{data:[{{value}}] }]
+        }
+      }
+
+
+    "></div>  ;;
 }
   measure: pillar_header {
     type: count
@@ -762,7 +766,7 @@ measure: gauge_version_2 {
     ;;
   }
 
-  measure: demo_measure {
+  measure: demo_measure_2 {
     type: count
     html:
     <div style="width:400px; font-size:18px">
@@ -788,6 +792,20 @@ measure: gauge_version_2 {
     ;;
   }
 
+measure: demo_measure {
+  type: count
+  html:
+  <div style="background-color:{{ytd_status_color._value}}; color:white">
+  Hello Lookers!<br>
+  </div>
+  <div style="background-color:white; color:black">
+      You are all {{ytd_status._value}}!<br>
+      Measure Value: {{metric_year_actual._rendered_value}}!<br>
+      Measure Goal: {{metric_year_goal._rendered_value}}
+  </div>
+  ;;
+
+}
 
 
 

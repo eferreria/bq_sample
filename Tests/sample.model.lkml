@@ -1,19 +1,73 @@
 connection: "sample"
 
-# include: "*.view.lkml"                       # include all views in this project
-# include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
+include: "*.view"
+include: "Dynamic_Measures/*.view"
 
-# # Select the views that should be a part of this model,
-# # and define the joins that connect them together.
+explore: sample {}
+
+explore: shakespeare {}
+
+
 #
-# explore: order_items {
-#   join: orders {
-#     relationship: many_to_one
-#     sql_on: ${orders.id} = ${order_items.order_id} ;;
+# explore: base_table {
+#   symmetric_aggregates: no
+#   always_filter: {
+#     filters: {
+#       field: base_table.select_dimension
+#       value: "City"
+#     }
 #   }
 #
-#   join: users {
-#     relationship: many_to_one
-#     sql_on: ${users.id} = ${orders.user_id} ;;
+#   join: last_30_days {
+#
+#     sql_on: ${base_table.dim1}=${last_30_days.dim1} ;;
+#     type: left_outer
+#     relationship: one_to_one
+#   }
+#
+#   join: dynamic_date_range {
+#     sql_on: ${base_table.dim1} = ${dynamic_date_range.dim1} ;;
+#     relationship: one_to_one
+#   }
+#
+#   join: second_dynamic_date_range {
+#     from: dynamic_date_range
+#     sql_on: ${base_table.dim1} = ${second_dynamic_date_range.dim1} ;;
+#     relationship: one_to_one
 #   }
 # }
+
+
+explore: base_table {
+  symmetric_aggregates: no
+#   always_filter: {
+#     filters: {
+#       field: base_table.select_dimension
+#       value: "City"
+#     }
+#   }
+
+  join: last_30_days {
+
+    sql_on: ${base_table.dim1}=${last_30_days.dim1} ;;
+    type: left_outer
+    relationship: one_to_one
+  }
+
+  join: dynamic_date_range {
+    sql_on: ${base_table.dim1} = ${dynamic_date_range.dim1} ;;
+    relationship: one_to_one
+  }
+
+  join: second_dynamic_date_range {
+    from: dynamic_date_range
+    sql_on: ${base_table.dim1} = ${second_dynamic_date_range.dim1} ;;
+    relationship: one_to_one
+  }
+}
+
+explore: liquor {}
+
+explore: last_30_days {}
+
+explore: dynamic_date_range {}

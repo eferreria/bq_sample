@@ -1,6 +1,6 @@
 connection: "sample"
 
-include: "om*.view.lkml"                       # include all views in this project
+include: "*.view.lkml"                       # include all views in this project
 # include: "om*.dashboard"
 
 fiscal_month_offset: -3
@@ -13,3 +13,5 @@ datagroup: om_default_datagroup {
 persist_with: om_default_datagroup
 
 explore: operational_metrics {}
+
+explore: gap_metric {}
