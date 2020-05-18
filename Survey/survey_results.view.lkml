@@ -9,6 +9,7 @@ view: survey_results {
 
   dimension: state {
     type: string
+    map_layer_name: us_states
     sql: substr(${where_are_you_from_}, length(${where_are_you_from_})-1) ;;
   }
 
@@ -75,4 +76,83 @@ view: survey_results {
     type: count
     drill_fields: [name]
   }
+
+  dimension: is_tableau {
+    type: yesno
+    hidden: yes
+    sql: ${which_bi_application_tool_have_you_used_before_} like '%Tableau%' ;;
+  }
+
+  measure: total_tableau {
+    type: count
+    filters: [is_tableau: "Yes"]
+  }
+
+  dimension: is_qlik {
+    type: yesno
+    hidden: yes
+    sql: ${which_bi_application_tool_have_you_used_before_} like '%Qlik%' ;;
+  }
+
+  measure: total_qlik {
+    type: count
+    filters: [is_qlik: "Yes"]
+  }
+
+  dimension: is_spotfire {
+    type: yesno
+    hidden: yes
+    sql: ${which_bi_application_tool_have_you_used_before_} like '%Spotfire%' ;;
+  }
+
+  measure: total_spotfire {
+    type: count
+    filters: [is_spotfire: "Yes"]
+  }
+
+  dimension: is_power_bi {
+    type: yesno
+    hidden: yes
+    sql: ${which_bi_application_tool_have_you_used_before_} like '%Power BI%' ;;
+  }
+
+  measure: total_power_bi {
+    label: "Total Power BI"
+    type: count
+    filters: [is_power_bi: "Yes"]
+  }
+
+  dimension: is_ms {
+    type: yesno
+    hidden: yes
+    sql: ${which_bi_application_tool_have_you_used_before_} like '%Microstrategy%' ;;
+  }
+
+  measure: total_microstrategy {
+    type: count
+    filters: [is_ms: "Yes"]
+  }
+
+#   dimension: is_other {
+#     type: yesno
+#     sql: ${which_bi_application_tool_have_you_used_before_} not like '%Tableau%' and
+#      ${which_bi_application_tool_have_you_used_before_} not like '%Microstrategy%' and
+#     ${which_bi_application_tool_have_you_used_before_} not like '%Power BI%' and
+#     ${which_bi_application_tool_have_you_used_before_} not like '%Qlik%' and
+#     ${which_bi_application_tool_have_you_used_before_} not like '%Power BI%' and
+#     length(${which_bi_application_tool_have_you_used_before_}) > 1;;
+#   }
+#
+#   measure: total_other {
+#     type: number
+#     sql:
+#     case when (${total_tableau}+${total_microstrategy}+${total_power_bi}+${total_qlik}+${total_spotfire})*6 <= length(${which_bi_application_tool_have_you_used_before_}) OR ${which_bi_application_tool_have_you_used_before_} is null
+#     then ${total_tableau}+${total_microstrategy}+${total_power_bi}+${total_qlik}+${total_spotfire}
+#     else ${total_tableau}+${total_microstrategy}+${total_power_bi}+${total_qlik}+${total_spotfire} + 1
+#     end
+#     ;;
+#   }
+
+
+
 }
