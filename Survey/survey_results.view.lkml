@@ -41,7 +41,7 @@ view: survey_results {
   dimension_group: timestamp {
     type: time
     timeframes: [
-      raw,
+      raw, hour_of_day,
       time,
       date,
       week,
@@ -50,6 +50,13 @@ view: survey_results {
       year
     ]
     sql: ${TABLE}.Timestamp ;;
+  }
+
+  dimension_group: since_survey_was_live {
+    type: duration
+    sql_end: ${timestamp_raw} ;;
+    sql_start: '2020-05-17 18:59:47.023999 UTC' ;;
+    intervals: [hour]
   }
 
   dimension: what_are_you_most_excited_about_this_workshop_ {
