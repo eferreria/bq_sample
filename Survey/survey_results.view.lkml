@@ -1,9 +1,20 @@
-view: accenture_survey {
-  sql_table_name: sample.survey_results ;;
+view: survey_results {
+  sql_table_name: `sample-224021.sample.survey_results`
+    ;;
 
   dimension: email_address {
     type: string
     sql: ${TABLE}.Email_Address ;;
+  }
+
+  dimension: state {
+    type: string
+    sql: substr(${where_are_you_from_}, length(${where_are_you_from_})-1) ;;
+  }
+
+  dimension: have_you_logged_into_your_looker_instance_ {
+    type: yesno
+    sql: ${TABLE}.Have_you_logged_into_your_Looker_instance_ ;;
   }
 
   dimension: name {
@@ -11,21 +22,18 @@ view: accenture_survey {
     sql: ${TABLE}.Name ;;
   }
 
-  dimension: bi_background {
-    label: "Business Intelligence Rating"
+  dimension: rate_your_business_intelligence__bi__background {
     type: string
     sql: ${TABLE}.Rate_your_business_intelligence__BI__background ;;
   }
 
   dimension: rate_your_looker_background {
-    label: "Looker Background"
     type: string
     sql: ${TABLE}.Rate_your_Looker_background ;;
   }
 
   dimension: rate_your_sql_background {
     type: string
-    label: "SQL Background"
     sql: ${TABLE}.Rate_your_SQL_Background ;;
   }
 
@@ -44,26 +52,22 @@ view: accenture_survey {
   }
 
   dimension: what_are_you_most_excited_about_this_workshop_ {
-    label: "Most Exciting Topic"
     type: string
     sql: ${TABLE}.What_are_you_most_excited_about_this_workshop_ ;;
   }
 
   dimension: what_is_your__quarantine__snack_ {
     type: string
-    label: "Quarantine Snack"
     sql: ${TABLE}.What_is_your__quarantine__snack_ ;;
   }
 
   dimension: where_are_you_from_ {
     type: string
-    label: "Location"
     sql: ${TABLE}.Where_are_you_from_ ;;
   }
 
   dimension: which_bi_application_tool_have_you_used_before_ {
     type: string
-    label: "Business Intelligence Application"
     sql: ${TABLE}.Which_BI_Application_Tool_have_you_used_before_ ;;
   }
 
